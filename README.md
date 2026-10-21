@@ -39,5 +39,5 @@ A responsive React-based weather application that fetches real-time weather data
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/GajaSarath/SkyFetch_a_Weather_API.git](https://github.com/GajaSarath/SkyFetch_a_Weather_API.git)
+   git clone https://github.com/GajaSarath/SkyFetch_a_Weather_API.git
    cd SkyFetch_a_Weather_API
