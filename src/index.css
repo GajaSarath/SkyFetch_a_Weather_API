@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 200vh;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%); /* black night gradient */
+  background-size: cover;
+  position: relative;
+  color: #ffffff;
+}
+
+/* ✨ Stars background layer with bright moving stars effect */
+body::before {
+  content: "";
+  position: fixed; /* fixed so it stays during scroll */
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  opacity: 0.3;
+  animation: starsMove 100s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ✨ Optional: additional glowing stars overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif') repeat; /* bright star gif pattern */
+  background-size: cover;
+  opacity: 0.2;
+  animation: starsTwinkle 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes starsMove {
+  from { background-position: 0 0; }
+  to { background-position: -1000px 0; }
+}
+
+/* ✨ Twinkle effect for glowing stars overlay */
+@keyframes starsTwinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ff6ec7;
+  text-shadow: 0 0 10px rgba(255,110,199,0.7), 0 0 20px rgba(255,110,199,0.5);
+}
+
+p, label, span {
+  color: #ffffff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #00fff7;
+  box-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+
+button {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,198,255,0.7), 0 0 20px rgba(0,114,255,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,198,255,0.8), 0 0 40px rgba(0,114,255,0.6);
+}
