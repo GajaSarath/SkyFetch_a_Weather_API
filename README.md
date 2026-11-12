@@ -6,7 +6,7 @@ A responsive React-based weather application that fetches real-time weather data
 
 ## 🚀 Live Demo
 
-👉 [View Live Deployment on Netlify]([serene-crostata-558eb7.netlify.app](https://serene-crostata-558eb7.netlify.app/))
+👉 [View Live Deployment on Netlify](https://serene-crostata-558eb7.netlify.app/)
 
 ---
 
