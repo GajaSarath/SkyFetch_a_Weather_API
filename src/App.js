@@ -205,7 +205,7 @@ function App() {
 
             <UTCDatetime />
             <Link
-              href="https://github.com/2200032645/weather_app.git"
+              href="https://github.com/GajaSarath/SkyFetch_a_Weather_API.git"
               target="_blank"
               underline="none"
               sx={{ display: 'flex' }}
