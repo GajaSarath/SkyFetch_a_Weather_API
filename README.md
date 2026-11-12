@@ -1,6 +1,6 @@
 # 🌤️ SkyFetch — Weather API
 
-A responsive React-based weather application that fetches real-time weather data for any searched city. The app uses the **OpenWeather API** for current weather and forecast details, deployed live using **Netlify**.
+A responsive React-based weather application that fetches real-time weather data for any searched city. The app uses the **Open-Meteo public APIs** for current weather and forecast details, deployed live using **Netlify**.
 
 ---
 
@@ -30,7 +30,7 @@ A responsive React-based weather application that fetches real-time weather data
 ## 🛠️ Tech Stack
 
 - **Frontend**: React.js, HTML5, CSS3 / Material UI
-- **API**: OpenWeather API (Axios / Fetch)
+- **API**: Open-Meteo geocoding and forecast APIs (Fetch; no API keys required)
 - **Deployment**: Netlify
 
 ---
