@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { getWeekDays } from '../../utilities/DatetimeUtils';
 import { weatherIcon } from '../../utilities/IconsUtils';
 import WeeklyForecastItem from './WeeklyForecastItem';
 import ErrorBox from '../Reusable/ErrorBox';
@@ -9,7 +8,6 @@ import DayWeatherDetails from './DayWeatherDetails';
 import Layout from '../Reusable/Layout';
 
 const WeeklyForecast = ({ data }) => {
-  const forecastDays = getWeekDays();
 
   const noDataProvided =
     !data ||
@@ -51,7 +49,7 @@ const WeeklyForecast = ({ data }) => {
               }}
             >
               <DayWeatherDetails
-                day={forecastDays[idx]}
+                day={new Date(`${item.date}T12:00:00Z`).toLocaleDateString('en-US', { weekday: 'long', timeZone: 'UTC' })}
                 src={weatherIcon(`${item.icon}`)}
                 description={item.description}
               />
@@ -116,7 +114,7 @@ const WeeklyForecast = ({ data }) => {
             }}
           >
             <UnfedForecastItem
-              day={forecastDays[5]}
+              day="Forecast unavailable"
               value="NaN"
               src={weatherIcon('unknown.png')}
             />

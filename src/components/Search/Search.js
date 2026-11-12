@@ -4,18 +4,23 @@ import { fetchCities } from '../../api/OpenWeatherService';
 
 const Search = ({ onSearchChange }) => {
   const [searchValue, setSearchValue] = useState(null);
+  const [searchError, setSearchError] = useState(false);
 
   const loadOptions = async (inputValue) => {
-    const citiesList = await fetchCities(inputValue);
-
-    return {
-      options: citiesList.data.map((city) => {
-        return {
+    setSearchError(false);
+    try {
+      const citiesList = await fetchCities(inputValue);
+      return {
+        options: citiesList.data.map((city) => ({
           value: `${city.latitude} ${city.longitude}`,
-          label: `${city.name}, ${city.countryCode}`,
-        };
-      }),
-    };
+          label: [city.name, city.admin1, city.countryCode].filter(Boolean).join(', '),
+        })),
+        hasMore: false,
+      };
+    } catch {
+      setSearchError(true);
+      throw new Error('City search is unavailable. Edit your search to try again.');
+    }
   };
 
   const onChangeHandler = (enteredData) => {
@@ -27,6 +32,14 @@ const Search = ({ onSearchChange }) => {
     <AsyncPaginate
       placeholder="🌎 Search for a city to get its weather..."
       debounceTimeout={600}
+      aria-label="Search for a city"
+      loadOptionsOnMenuOpen={false}
+      loadingMessage={() => 'Searching cities...'}
+      noOptionsMessage={({ inputValue }) =>
+        searchError ? 'City search is unavailable. Edit your search to try again.' :
+        inputValue.trim().length < 2 ? 'Type at least 2 characters to search.' :
+        'No cities found. Try another city name.'
+      }
       value={searchValue}
       onChange={onChangeHandler}
       loadOptions={loadOptions}
@@ -48,6 +61,7 @@ const Search = ({ onSearchChange }) => {
           fontFamily: 'Poppins, Roboto, sans-serif',
           fontSize: '14px',
         }),
+        input: (provided) => ({ ...provided, color: 'white' }),
         singleValue: (provided) => ({
           ...provided,
           color: 'white',

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
 import Search from './components/Search/Search';
 import WeeklyForecast from './components/WeeklyForecast/WeeklyForecast';
 import TodayWeather from './components/TodayWeather/TodayWeather';
 import { fetchWeatherData } from './api/OpenWeatherService';
-import { transformDateFormat } from './utilities/DatetimeUtils';
 import UTCDatetime from './components/Reusable/UTCDatetime';
 import LoadingBox from './components/Reusable/LoadingBox';
 import { ReactComponent as SplashIcon } from './assets/splash-icon.svg';
@@ -24,19 +23,24 @@ function App() {
   const [weekForecast, setWeekForecast] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const latestRequest = useRef(0);
 
   const searchChangeHandler = async (enteredData) => {
+    if (!enteredData) return;
+    const requestId = ++latestRequest.current;
     const [latitude, longitude] = enteredData.value.split(' ');
 
     setIsLoading(true);
+    setError(false);
 
-    const currentDate = transformDateFormat();
+    const currentDate = new Date().toISOString().replace('T', ' ');
     const date = new Date();
     let dt_now = Math.floor(date.getTime() / 1000);
 
     try {
       const [todayWeatherResponse, weekForecastResponse] =
         await fetchWeatherData(latitude, longitude);
+      if (requestId !== latestRequest.current) return;
       const all_today_forecasts_list = getTodayForecastWeather(
         weekForecastResponse,
         currentDate,
@@ -55,10 +59,10 @@ function App() {
         list: all_week_forecasts_list,
       });
     } catch (error) {
-      setError(true);
+      if (requestId === latestRequest.current) setError(true);
     }
 
-    setIsLoading(false);
+    if (requestId === latestRequest.current) setIsLoading(false);
   };
 
   let appContent = (
@@ -220,6 +224,9 @@ function App() {
             </Link>
           </Box>
           <Search onSearchChange={searchChangeHandler} />
+          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,.7)' }}>
+            Weather data by <Link href="https://open-meteo.com/" color="inherit">Open-Meteo</Link>
+          </Typography>
         </Grid>
         {appContent}
       </Grid>
